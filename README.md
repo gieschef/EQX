@@ -5,7 +5,7 @@ Focus is on special needs in vehicle safety and crash testing.
 
 ## EQX specification is an ISO new work item 
 Over the last years EQX was developed and improved up to **version 1.5
-ISO project started in july and is referenced as **ISO NP TS 23520**, check out [ISO.org](http://iso.org) for more details. A draft version of teh ISO document is available for registered users.
+ISO project started in july and is referenced as **ISO NP TS 23520**, check out [ISO.org](http://iso.org) for more details. A draft version of the ISO document is available for registered users.
 
 XML Schema definition [XSD](https://github.com/gieschef/EQX/blob/master/Spec/EquipmentExchange.xsd) and some additional informations are available in this repository as well. 
 
