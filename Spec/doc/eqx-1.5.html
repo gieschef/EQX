@@ -1,0 +1,1740 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40"
+xmlns:ns0="urn:schemas-microsoft-com:office:smarttags">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 14">
+<meta name=Originator content="Microsoft Word 14">
+<link rel=File-List href="eqx-1.5-Dateien/filelist.xml">
+<title>Equipment Exchange (EQX) Data Format Description</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Schnaus Oliver</o:Author>
+  <o:LastAuthor>Schnaus Oliver</o:LastAuthor>
+  <o:Revision>8</o:Revision>
+  <o:Created>2014-07-04T11:53:00Z</o:Created>
+  <o:LastSaved>2016-06-29T14:01:00Z</o:LastSaved>
+  <o:Pages>3</o:Pages>
+  <o:Words>2003</o:Words>
+  <o:Characters>12619</o:Characters>
+  <o:Lines>105</o:Lines>
+  <o:Paragraphs>29</o:Paragraphs>
+  <o:CharactersWithSpaces>14593</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="eqx-1.5-Dateien/themedata.thmx">
+<link rel=colorSchemeMapping href="eqx-1.5-Dateien/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>140</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:HyphenationZone>21</w:HyphenationZone>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>DE</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+  DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="267">
+  <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+  <w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Table Grid"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-520092929 1073806591 9 0 415 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Überschrift 1 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+h2
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Überschrift 2 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-style:italic;}
+h3
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Überschrift 3 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Nur Text Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+span.berschrift1Zchn
+	{mso-style-name:"Überschrift 1 Zchn";
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Überschrift 1";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#365F91;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-weight:bold;}
+span.berschrift2Zchn
+	{mso-style-name:"Überschrift 2 Zchn";
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Überschrift 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.berschrift3Zchn
+	{mso-style-name:"Überschrift 3 Zchn";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Überschrift 3";
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.NurTextZchn
+	{mso-style-name:"Nur Text Zchn";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Nur Text";
+	mso-ansi-font-size:10.5pt;
+	mso-bidi-font-size:10.5pt;
+	font-family:Consolas;
+	mso-ascii-font-family:Consolas;
+	mso-hansi-font-family:Consolas;
+	mso-bidi-font-family:Consolas;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:70.85pt 57.6pt 2.0cm 57.6pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:825632558;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1909895036 -1845846298 67567619 67567621 67567617 67567619 67567621 67567617 67567619 67567621;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Courier New";}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:1344674174;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1775148150 134676481 134676483 134676485 134676481 134676483 134676485 134676481 134676483 134676485;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2
+	{mso-list-id:1418674708;
+	mso-list-type:hybrid;
+	mso-list-template-ids:527851032 31866222 67567619 67567621 67567617 67567619 67567621 67567617 67567619 67567621;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Courier New";}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l3
+	{mso-list-id:1892032756;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-887699514 67567617 67567619 67567621 67567617 67567619 67567621 67567617 67567619 67567621;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l3:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Normale Tabelle";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+table.Tabellengitternetz
+	{mso-style-name:Tabellengitternetz;
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-unhide:no;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=DE style='tab-interval:35.4pt'>
+
+<div class=WordSection1>
+
+<h1 align=center style='text-align:center'><span lang=EN-GB style='mso-fareast-font-family:
+"Times New Roman";mso-ansi-language:EN-GB'>Equipment Exchange (EQX) Data Format
+Description<o:p></o:p></span></h1>
+
+<h2 align=center style='text-align:center'><span lang=EN-GB style='mso-fareast-font-family:
+"Times New Roman";mso-ansi-language:EN-GB'>Version 1.5<o:p></o:p></span></h2>
+
+<h3 align=center style='text-align:center'><span lang=EN-GB style='mso-fareast-font-family:
+"Times New Roman";mso-ansi-language:EN-GB'>Kistler, July 2016<o:p></o:p></span></h3>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;<o:p></o:p></span></p>
+
+<h1><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>1. History<o:p></o:p></span></h1>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+format is developed based on the results of the AK Equipment Exchange from 2007-02-07,
+version 0.9 (see [1]) and example files of different manufacturers. First prototypes
+have been realized by <st1:place w:st="on"><st1:place w:st="on">Delphi</st1:place></st1:place>
+and Messring.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.0 is developed in Dec 2009 by the companies KT Automotive, Messring, MSC and
+Kistler. Intention of the 1.0 version is the ability of the format to exchange
+a complete set of sensor and dummy data from one database to another without
+loss of information. Support of EQX version 1.0 is realized since CrashDesigner
+V2.6.1 by KT Automotive.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.1 is a compatible enhancement to V1.0 in Oct 2010 by KT Automotive. It
+additionally supports the exchange of test setups with ISO attributes&nbsp;and
+additional company specific attributes for the test and the test objects. It
+was requested by users to realize the exchange with 3<sup>rd</sup> party test
+preparation software packages. Support of EQX 1.1 is provided in CrashDesigner
+V2.7.1 by KT Automotive.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.2 is a compatible enhancement to V1.1 in Jul 2011 by Kistler. Optional
+attributes are allowed on sensor axes and calibration entries and additional
+fix attributes are defined to fully support test setup exchanges.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.3 is a compatible enhancement to V1.2 in May 2012 as a result of a
+stakeholder meeting at TRW on 2012-03-15. It contains additional optional
+attributes for calibration entries and additional <span class=SpellE>SensorGroup</span>
+Categories.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.4 is a compatible enhancement to V1.3 in Jul 2014 by Kistler. Exchange of
+digitally calibrated sensors, operated in LSB (least significant bit) instead
+of mV is added. ID module types are enhanced. Elements to specify the bridge
+resistors are added.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Version
+1.5 is a compatible enhancement to V1.4 in Jul 2016 as discussed and agreed in
+a web meeting on 2016-05-11 and a meeting at <span class=SpellE>Messring</span>
+on 2016-06-22 with participants from ZF/TRW, Kistler, DTS, <span class=SpellE>Hentschel</span>,
+<span class=SpellE>Messring</span>, <span class=SpellE>measX</span>, IAT. <o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 1.4<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l2 level1 lfo7'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+category ‘Equipment’ for the exchange of peripheral equipment.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l2 level1 lfo7'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+element ‘Path’ to specify structure information for a group.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+scaling method ‘Linear with Offset’.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+connector types ‘<span class=SpellE>Tajimi</span> 7pol flat’ and ‘Micro D 15pol’.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+Electrical methods ‘Half Bridge <span class=SpellE>Poti</span>’, ‘Quarter
+Bridge’, ‘High Voltage Input’.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+element ‘<span class=SpellE>NominalValue</span>’ as a complement to the ‘<span
+class=SpellE>MinRange</span>’ and ‘<span class=SpellE>MaxRange</span>’ elements
+in an asymmetrically used context.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+elements ‘<span class=SpellE>SWOffsetCompensationType</span>’, ‘<span
+class=SpellE>SWOffsetCalculationStartSec</span>’, ‘<span class=SpellE>SWOffsetCalculationEndSec</span>’,
+‘<span class=SpellE>SWOffsetFixValue</span>’, ‘<span class=SpellE>SWFilterClassType</span>’,
+‘<span class=SpellE>SWFilterAdHocFrequency</span>’ for a detailed specification
+of software offset and filter corrections.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+elements ‘<span class=SpellE>FiringDuration</span>’, ‘<span class=SpellE>FiringVoltageLimit</span>’,
+‘<span class=SpellE>FiringCurrentLimit</span>’ for an enhanced exchange of
+timer channel parameters.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>CalHistoryEntry</span></span><span lang=EN-GB style='mso-ansi-language:
+EN-GB'> enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+flag ‘<span class=SpellE>ReferenceCalibration</span>’ to mark a calibration to
+be the master for the deviation verifications.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Attachment
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+attribute ‘Type’ to optionally specify whether the attachment is a calibration
+sheet, data sheet or image.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 1.3<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+element ‘<span class=SpellE>EngineeringUnit</span>’ for <span class=SpellE>SensorAxis</span>
+and <span class=SpellE>CalHistory</span> elements.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+possible values ‘<span class=SpellE>DiMod</span>’ and ‘<span class=SpellE>Microdau</span>’
+for <span class=SpellE>IDModuleType</span> elements.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo2'><![if !supportLists]><span lang=EN-GB style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-ansi-language:
+EN-GB'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+elements ‘<span class=SpellE>BridgeResistorPinpPexc</span>’, ‘<span
+class=SpellE>BridgeResistorPinpNexc</span>’, ‘<span class=SpellE>BridgeResistorNinpPexc</span>’,
+‘<span class=SpellE>BridgeResistorNinpNexc</span>’ for <span class=SpellE>SensorAxis</span>
+elements.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 1.2<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+elements ‘<span class=SpellE>LinearityDeviation</span>’ and ‘<span
+class=SpellE>StandardDeviation</span>’ for <span class=SpellE>SensorAxis</span>
+and <span class=SpellE>CalHistory</span> elements.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>New
+elements ‘<span class=SpellE>MaxSensitivityDeviation</span>’, ‘<span
+class=SpellE>MaxLinearityDeviation</span>’ and ‘<span class=SpellE>MaxStandardDeviation</span>’
+to exchange accepted limits.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+choice for the ‘Category’ has been enhanced by the ‘<span class=SpellE>TestBench</span>’
+and the ‘<span class=SpellE>MeasurementDevice</span>’ category.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 1.1<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+elements ‘<span class=SpellE>ReadoutEnabled</span>’ and ‘<span class=SpellE>ConversionEnabled</span>’
+have been added to <span class=SpellE>SensorAxis</span> elements.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+element ‘Attribute’ has been added to <span class=SpellE>CalHistory</span>
+elements as well as for <span class=SpellE>SensorAxis</span> elements. See
+specific attribute names for analog trigger definition below.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+element ‘<span class=SpellE>ConnectorId</span>’ has been added to <span
+class=SpellE>SensorAxis</span> elements, enabling to exchange information about
+sensor axes connected with the same multi-channel connector.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 1.0<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+element ‘Attribute’ has been added to <span class=SpellE>SensorGroup</span> and
+Sensors elements.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l1 level1 lfo4;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+choice for the ‘Category’ has been enhanced by the ‘<span class=SpellE>TestSetup</span>’
+category.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>Changes to version 0.9<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>General
+changes:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> element ‘Data format edition’ has
+been renamed to ‘<span class=SpellE>DataFormatEdition</span>’ to be consistent
+with the naming of other elements<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'>The Address type is defined as a set
+of attributes. <o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> elements ‘<span class=SpellE>AttachmentX</span>’
+and ‘<span class=SpellE>AttachmentXDescription</span>’ have been replaced by a
+new type ‘Attachment’, which may be added unbounded.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> element ‘Remark’ is moved from the
+header section to the base type of all grouping types. So general remarks are
+part of the ‘Sensors’ root element, now.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+changes and enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'>Sensor groups may represent
+different types like dummies, multi-axis sensors or just nested groups of
+dummies or sensors. To separate those cases, an additional element ‘Category’
+with an according enumeration has been added, as it is already used in some of
+the example files.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'>
+changes and enhancements:<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> element ‘<span class=SpellE>Electrical_Methode</span>’
+has been renamed to ‘<span class=SpellE>ElectricalMethod</span>’ to be
+consistent with the naming of other elements. The underlying enumeration has
+been enhanced, please see [2] for details. An additional element ‘<span
+class=SpellE>ScalingMethod</span>’ respects non-linear transformations.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>All</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> elements except the ‘Name’ and ‘UUID’
+are optional, now. A sensor axis may optionally be used for arbitrary dummy or
+car channels, even without a physical sensor behind like airbag timer channels
+or constant channels. Additionally, some sensor axes may not know about their
+mounting location or orientation.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> new element ‘Enabled’ allows the
+specification of disabled channels / sensor axes.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> location specification has been
+enhanced by a long name and company specific code and long name.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> new element ‘Technology’ specifies
+a certain technology type of sensor, e.g. RES for resistive sensors, PES for
+piezo electrical sensors<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> enumeration ‘<span class=SpellE>IdModuleType</span>’
+has been reduced to the actually used id modules. A new element ‘<span
+class=SpellE>TedsType</span>’ marks sensors with <span class=GramE>TEDS</span>
+information.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> new element ‘Status’ specifies a
+sensor status – detailed information to the ‘Usable’ flag. <o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> shunt parameters are enhanced by
+the new flags ‘<span class=SpellE>ShuntCheckPos</span>’ and ‘<span
+class=SpellE>ShuntCheckNeg</span>’ specifying whether the shunt measurement is
+active or not. The shunt check tolerance is now specified in % of the reference
+value instead of mV/V.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> new element ‘<span class=SpellE>ExcitationVoltage</span>’
+specifies the excitation used for this channel which may derive from the
+excitation used for the latest calibration (‘<span class=SpellE>SensitivityVoltage</span>’).
+In comparison to that, the ‘<span class=SpellE>ExcitationVoltageMin</span>’ and
+‘<span class=SpellE>ExcitationVoltageMax</span>’ elements specify the allowed
+voltage range given by the sensor manufacturer.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l3 level1 lfo6;tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-GB
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-GB'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+new element ‘<span class=SpellE>PreferredRange</span>’ holds the CAC (Channel
+Amplitude Class) of the channel, which may differ from the already defined <span
+class=SpellE>maxRange</span>. While the <span class=SpellE>maxRange</span>
+specified the range of linearity of the sensor output, the preferred range
+controls the ideal amplification. Signals above the preferred range will run
+into overdrive while signals much lower than the preferred range will not use
+the available resolution of the measurement device.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> reference to a device channel is
+added in the new element ‘<span class=SpellE>DeviceChannelName</span>’. The
+content is a unique identification of a device channel according to the device
+manufacturer naming convention.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> calibration elements are enhanced
+by the ‘<span class=SpellE>CalPersion</span>’ and the ‘<span class=SpellE>CalRemark</span>’.
+To transfer also a calibration history, further entries containing old
+calibration data may be added unbounded as ‘<span class=SpellE>CalHistory</span>’
+elements. The new element ‘<span class=SpellE>CalVersion</span>’ is an
+increasing number usable for calibration entry sorting. Additional calibration
+values may be added for non-linear sensors like IRTRACC or cubic polynomial
+calibrated displacement sensors (see the description of the <span class=SpellE>ScalingMethod</span>
+type enumeration). The ‘<span class=SpellE>CalDate</span>’ type now refers to
+the standard schema type ‘date’ to avoid proprietary formatting and provide
+format checking by schema.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>Some</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> further optional elements handle
+constant channels and timer channels specifications.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> elements ‘<span class=SpellE>AttachmentX</span>’
+and ‘<span class=SpellE>AttachmentXDescription</span>’ have been replaced by a
+new type ‘Attachment’, which may be added unbounded.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE><span lang=EN-GB style='mso-ansi-language:EN-GB'>The</span></span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'> element ‘Direction’ has been
+renamed to ‘<span class=SpellE>AxisDirection</span>’, the ‘<span class=SpellE>MountingPolarity</span>’
+is specified by an own element. Any inversions due to sensor wiring are
+specified by an element ‘<span class=SpellE>ElectricalPolarity</span>’.<o:p></o:p></span></p>
+
+<p class=MsoPlainText style='margin-left:36.0pt;text-indent:-18.0pt'><span
+lang=EN-GB style='font-family:Symbol;mso-ansi-language:EN-GB'>·</span><span
+lang=EN-GB style='font-size:7.0pt;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-GB'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+lang=EN-GB style='mso-ansi-language:EN-GB'>The ‘<span class=SpellE>ConnectorPinX</span>’
+elements have been replaced with unbounded ‘<span class=SpellE>ConnectorPin</span>’
+definitions, each identified by id which is not necessarily a number in 1-10
+anymore.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>2. Format description<o:p></o:p></span></h1>
+
+<h2><span lang=EN-GB style='mso-ansi-language:EN-GB'>File Structure<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The data
+exchange is done via an XML file with the suffix ‘.e2x’. The XML file follows
+the XML schema definition, which contains a detailed description of the current
+types and elements (see [2]).<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Additional
+related files like data sheets, calibration sheets or images can be exchanged
+together with the XML structure. Those are referred by the ‘Attachment’
+elements in the XML file. The content of the Attachment element specify the path
+relative to the current directory of the XML file. Best practice for the
+exchange is to place the attached files on a subfolder named similar to the
+.e2x file but without the suffix.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-ansi-language:EN-GB'>Sensor Exchange<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>A sensor
+should be specified as <span class=SpellE>SensorGroup</span> element of
+category ‘Multi-Axis Sensor’. Single axis sensors use the same category but add
+only one axis.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+order of Sensor Axis elements within the <span class=SpellE>SensorGroup</span> needs
+to be respected carefully. Usually they should be ordered by 1<sup>st</sup>
+Dimension and 2<sup>nd</sup> Direction.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Sensors
+may be specified multiple times in a file, e.g. as a part of a multi axis
+sensor and as a part of dummies. Only one specification needs to be complete,
+others may just refer to the UUID and name of the sensor. Complete sensor
+definitions need at least the specification of the Model and the <span
+class=SpellE>ElectricalMethod</span>.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The latest
+calibration should be added direct to the <span class=SpellE>SensorAxis</span> element.
+Older or alternative calibrations may be added as <span class=SpellE>CalHistory</span>
+elements with decreasing <span class=SpellE>CalVersion</span> numbers. <o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Calibration
+labs should check new calibrations against the latest calibration of the
+history with <span class=SpellE>ReferenceCalibration</span> set to true (if
+available) or the calibration information directly at the <span class=SpellE>SensorAxis</span>
+as <span class=SpellE>fallback</span>. The tolerance for the sensitivity may be
+provided via the <span class=SpellE>MaxSensitivityDeviation</span> element.
+Additional verifications are requested, if the elements <span class=SpellE>MaxLinearityDeviation</span>
+and <span class=SpellE>MaxStandardDeviation</span> are defined.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-ansi-language:EN-GB'>Dummy Exchange<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+EN-GB'>Dummys</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'> and
+other channel groups are <span class=SpellE>SensorGroup</span> elements of
+category ‘Dummy’. Each channel is specified as <span class=SpellE>SensorAxis</span>
+element. Assigned sensors are referred via the UUID and Name element. <o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Channels
+without sensors should be named similar to their ‘<span class=SpellE>LocationCode</span>’.
+‘<span class=SpellE>FiringMode</span>’ and ‘<span class=SpellE>FiringDelay</span>’
+should be specified for timer channels only. ‘<span class=SpellE>ConstInValue</span>’
+and ‘<span class=SpellE>ConstInReadOnly</span>’ should be specified for
+constant channels only (e.g. Pendulum mass).<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-ansi-language:EN-GB'>Peripheral Equipment
+Exchange<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>General
+equipment as balances, tilt sensors or data loggers should be specified as <span
+class=SpellE>SensorGroup</span> element of category ‘Equipment’ with a single <span
+class=SpellE>SensorAxis</span> sub-element. If assigned to a dummy, these specific
+<span class=SpellE>SensorGroup</span> elements may be added to a dummy <span
+class=SpellE>SensorGroup</span> element.<o:p></o:p></span></p>
+
+<h2><span lang=EN-GB style='mso-ansi-language:EN-GB'>Test Setup Exchange<o:p></o:p></span></h2>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Test
+setups should be exchanged as <span class=SpellE>SensorGroup</span> element of
+category ‘<span class=SpellE>TestSetup</span>’. The substructure hold test
+objects on first level and seat positions in second level. A nested structure
+of other <span class=SpellE>SensorGroup</span> elements reflects the structure
+of the test setup. <o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Each <span
+class=SpellE>SensorGroup</span> level can hold specific attributes. The ‘Attribute’
+keys for ISOMME data should follow the convention of ISOMME, e.g. ‘Customer
+test ref. number’. The keys for numerated ISOMME data should follow the convention
+of ISOMME without number, e.g. ‘Velocity test object’, ‘Name of test object’
+and should be assigned directly to the according test object <span
+class=SpellE>SensorGroup</span> element one level below the test setup <span
+class=SpellE>SensorGroup</span> element. Customer specific keys are allowed,
+but possibly need registration to the importing system. <o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The following
+additional attribute keys are known yet:<o:p></o:p></span></p>
+
+<table class=Tabellengitternetz border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'>Attribute Key<o:p></o:p></span></b></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'>Value Format<o:p></o:p></span></b></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'>Unit<o:p></o:p></span></b></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'>Element<o:p></o:p></span></b></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'>Description<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Pre
+  trigger time<o:p></o:p></span></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>xxx.yyyy</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>sec<o:p></o:p></span></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>, Category <span class=SpellE>TestSetup</span><o:p></o:p></span></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+  required pre trigger time for data acquisition<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Post trigger
+  time<o:p></o:p></span></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>xxx.yyyy</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>sec<o:p></o:p></span></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>SensorGroup</span></span><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>, Category <span class=SpellE>TestSetup</span><o:p></o:p></span></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+  required post trigger time for data acquisition<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Analog
+  trigger<o:p></o:p></span></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[<span
+  class=SpellE>lt|gt</span>] <span class=SpellE>xxx.yyyy</span><o:p></o:p></span></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Sensor
+  unit<o:p></o:p></span></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Defines
+  an analog trigger on a specified sensor. The trigger is launched if the
+  sensor value is above (<span class=SpellE>gt</span>) or below (<span
+  class=SpellE>lt</span>) the specified threshold.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>BaudRate</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>int</span></span><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Baud<o:p></o:p></span></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Baud
+  rate of a CAN logger channel<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=203 valign=top style='width:152.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-US style='mso-ansi-language:
+  EN-US'>BusTermination</span></span><span lang=EN-US style='mso-ansi-language:
+  EN-US'><o:p></o:p></span></p>
+  </td>
+  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[<span
+  class=SpellE>true|false</span>]<o:p></o:p></span></p>
+  </td>
+  <td width=108 valign=top style='width:81.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=276 valign=top style='width:207.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span class=SpellE><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'>SensorAxis</span></span><span lang=EN-GB style='mso-ansi-language:
+  EN-GB'><o:p></o:p></span></p>
+  </td>
+  <td width=516 valign=top style='width:387.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>True
+  if the CAN bus of a logger channel should be terminated by the device<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>3. Examples<o:p></o:p></span></h1>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+example [3] shows a H3 dummy. It contains a <span class=SpellE>SensorGroup</span>
+element of category ‘Dummy’ containing Sensor elements referring to the dummy
+channels. The sensor axes are just referred by name, as the detailed sensor
+axis information is added in the context of the <span class=SpellE>SensorGroup</span>
+of type ‘Multi-Axis Sensor’. In a general case, the axes of a multi axis sensor
+need not be referred in the same order inside a dummy or some axes may not be
+used. But for the sensor import, it is necessary to import the complete axes
+specification with the correct order into the database.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>&nbsp;&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The
+example [4] shows an export of a sensor query of cubic polynomial sensors. The
+calibration sheets of some sensors are attached and exist as file parallel to
+the e2x.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Example
+[5] shows the export of a small test setup, containing ISO attributes.<o:p></o:p></span></p>
+
+<h1><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:EN-GB'>4. References<o:p></o:p></span></h1>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[1]<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>AKEQEX_070207_Wuppertal_Delphi_DArp_Attributliste.xls<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Description
+of attributes, version 0.9<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[2]<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>EquipmentExchange.xsd<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>The XML
+schema definition<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[3]<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Dummy
+9.zip<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>An
+example for dummy exchange, version 1.0<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[4]<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Sensors.zip<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>An
+example for a multi axis sensor exchange list, version 1.0<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>[5]<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>Tests-1.1.zip<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'>An
+example for a test setup exchange list, version 1.1<o:p></o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoPlainText><span lang=EN-GB style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+</body>
+
+</html>
