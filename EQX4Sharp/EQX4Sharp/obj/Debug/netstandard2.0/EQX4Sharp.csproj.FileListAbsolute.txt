@@ -1,0 +1,9 @@
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\bin\Debug\netstandard2.0\EQX4Sharp.deps.json
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\bin\Debug\netstandard2.0\EQX4Sharp.dll
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\bin\Debug\netstandard2.0\EQX4Sharp.pdb
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.csprojAssemblyReference.cache
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.csproj.CoreCompileInputs.cache
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.AssemblyInfoInputs.cache
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.AssemblyInfo.cs
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.dll
+C:\Data\Development\SharpDev\EQX4Sharp\EQX4Sharp\obj\Debug\netstandard2.0\EQX4Sharp.pdb
