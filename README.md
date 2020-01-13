@@ -1,4 +1,4 @@
-# EQX : EQuipment eXchange
+ eEQX : EQuipment eXchange
 
 EQX is a standard XML data format for exchanging information about sensors and testsetups to make exchange of equipment and metadata informaion on testsetups easier in daily testing process.
 Focus is on special needs in vehicle safety and crash testing.
@@ -26,4 +26,4 @@ See the [WIKI](https://github.com/gieschef/EQX/wiki) for documentation and hints
 ## taskforce meeting
 The specification of EQX is ongoing, online discussions are held regulary within taskforce meetings.
 Next meeting is scheduled on 6th of february at 12:30 german time in Skype.
-If you would liek to participate and contribute please leave a remark or contact gieschef.
+If you would like to participate and contribute please leave a remark or contact gieschef.
