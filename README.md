@@ -23,7 +23,3 @@ Some slides for explanation, examples and a changelog is available in the [Spec]
 
 See the [WIKI](https://github.com/gieschef/EQX/wiki) for documentation and hints.
 
-## taskforce meeting
-The specification of EQX is ongoing, online discussions are held regulary within taskforce meetings.
-Next meeting is scheduled on 6th of february at 12:30 german time in Skype.
-If you would like to participate and contribute please leave a remark or contact gieschef.
