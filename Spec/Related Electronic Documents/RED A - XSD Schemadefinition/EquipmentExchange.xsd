@@ -2,12 +2,11 @@
 <!--
     Document   : EquipmentExchange.xsd
     Author     : Oliver Schnaus
-    Version    : 1.5
-    Date       : 23.05.2016
+    Version    : 1.6
+    Date       : 2020-02-06
     Description: Exchange of sensor, dummy and test data between crash test preparation software systems like CrashDesigner.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:kta="http://www.minidau.com/EquipmentExchange"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
     <xs:complexType name="EqxAddress">
@@ -35,10 +34,6 @@
         <xs:restriction base="xs:string">
             <!-- Normal, linear scaling -->
             <xs:enumeration value="Linear"/>
-            
-            <!--  -->
-            <xs:enumeration value="Linear with Offset"/>
-            
             <!-- Special optical displacement sensors, e.g. mounted to a WorldSID or H3-10YO dummy.
             The calibration is done in a nonlinear way by an exponential function:
             Sensitivity2 := Exponent (exp) with default value -0.42857
@@ -53,7 +48,6 @@
             Physical units are scaled similar to active sensors based on the linearized output values above: 
                                 D = U~/Sensitivity. -->
             <xs:enumeration value="IRTRACC"/>
-            
             <!-- Full bridge sensors additionally calibrated with a cubic polynomial
             according to SAE J2517 Rev. September 2006. Usually displacement.
             Sensitivity := The regular linear calibration factor
@@ -61,7 +55,13 @@
                                 D = A*S3 + B*S2 +C*S + M;
                                 with S := sensor output per excitation voltage in mV/V or LSB. -->
             <xs:enumeration value="Cubic Polynomial"/>
-            
+            <!-- V1.5: Full bridge sensors with a calibrated offset.
+            Sensitivity := The regular linear calibration factor
+            Sensitivity2-3 := Ignored / Omitted
+            Sensitivity4-5 := The parameters C, M as a special linear case of the formula following the SAE-J2517 Rev. September 2006:
+                                D = C*S + M;
+                                with S := sensor output per excitation voltage in mV/V or LSB. -->
+            <xs:enumeration value="Linear with Offset"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -101,6 +101,7 @@
             <xs:enumeration value="Tajimi 5pol"/>
             <xs:enumeration value="Tajimi 7pol flat"/> <!-- V1.5 -->
             <xs:enumeration value="Bendix 26pol"/>
+            <xs:enumeration value="Micro D 15pol"/> <!-- V1.5 -->
         </xs:restriction>
     </xs:simpleType>
 
@@ -145,6 +146,8 @@
             <xs:enumeration value="Active Sensor"/>
             <!-- Special temperature logger sensors, e.g. type 451C/T-LOG of MSC -->
             <xs:enumeration value="UPS Data Logger"/>
+            <!-- V1.5: Separate DAS channel to acquire voltages beyond the input voltage range by a built in voltage devider -->
+            <xs:enumeration value="High Voltage Input"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -229,6 +232,8 @@
             <xs:element name="CalRemark" type="xs:string" minOccurs="0"/>
             <!-- V1.5: true if this calibration is a reference calibration for deviation verifications. -->
             <xs:element name="ReferenceCalibration" type="xs:boolean" minOccurs="0"/>
+            <!-- Attachments to the sensor like related data sheets or calibration sheets --><!-- V1.6: Moved from EqxSensorAxis to EqxCalHistoryEntry -->
+            <xs:element name="Attachment" type="EqxAttachment" minOccurs="0" maxOccurs="unbounded"/>
             <!-- Vendor specific enhancements -->
             <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="Attribute" type="EqxAttribute" minOccurs="0" maxOccurs="unbounded"/>
@@ -253,7 +258,7 @@
                     <xs:element name="TedsType" type="EqxTedsType" minOccurs="0"/>
 
                     <!-- Location data -->
-                    <!-- The 15 character ISO code of the location -->
+                    <!-- The 16 character ISO code of the location -->
                     <xs:element name="LocationCode" type="xs:string" minOccurs="0"/>
                     <!-- The description for the ISO code, e.g. the ISO text L1 or L2 -->
                     <xs:element name="LocationLongname" type="xs:string" minOccurs="0"/>
@@ -276,8 +281,11 @@
                     <xs:element name="PhysicalDimension" type="xs:string" minOccurs="0"/>
                     <xs:element name="PhysicalUnit" type="xs:string" minOccurs="0"/>
                     <xs:element name="AxisDirection" type="xs:string" minOccurs="0"/>
+                    <!-- The minimum and maximum physical value to be measured by this sensor type. For a symmetric sensor, MinRange defaults to -MaxRange -->
                     <xs:element name="MinRange" type="xs:float" minOccurs="0"/>
                     <xs:element name="MaxRange" type="xs:float" minOccurs="0"/>
+                    <!-- V1.5: The nominal value of the sensor type in physical units. If not specified, the MaxRange may be used as nominal value. -->
+                    <xs:element name="NominalValue" type="xs:float" minOccurs="0"/>
 
                     <!-- Maximum allowed relative deviation of new sensitivity to previous sensitivity or reference sensitivity -->
                     <!-- Recommended strategy: Use the latest calibration history entry with "ReferenceCalibration" flag set to "true" as reference. -->
@@ -292,6 +300,7 @@
 
                     <!-- Sensor data -->
                     <xs:element name="SerialNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="InventoryNumber" type="xs:string" minOccurs="0"/>
                     <xs:element name="Usable" type="xs:boolean" minOccurs="0"/>
                     <xs:element name="Status" type="xs:string" minOccurs="0"/>
 
@@ -396,8 +405,6 @@
                     <!-- V1.5: The firing current limit in mA -->
                     <xs:element name="FiringCurrentLimit" type="xs:int" minOccurs="0"/>
                     
-                    <!-- Attachments to the sensor like related data sheets or calibration sheets -->
-                    <xs:element name="Attachment" type="EqxAttachment" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
                 <xs:anyAttribute/>
             </xs:extension>
@@ -405,8 +412,8 @@
     </xs:complexType>
 
     <xs:complexType name="EqxAttribute">
-        <!-- The keys for ISOMME data should follow the convention of ISOMME, e.g. "Customer test ref. number" -->
-        <!-- The keys for numerated ISOMME data should follow the convention of ISOMME without number, e.g. "Velocity test object", "Name of test object" -->
+        <!-- The keys for ISOMME data should follow the convention of ISO/TS 13499, e.g. "Customer test ref. number" -->
+        <!-- The keys for numerated ISOMME data should follow the convention of ISO/TS 13499 without number, e.g. "Velocity test object", "Name of test object" -->
         <xs:attribute name="Key" type="xs:string"/>
         <xs:attribute name="Value" type="xs:string"/>
     </xs:complexType>
@@ -430,7 +437,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- since 1.5 -->
+    <!-- since V1.5 Add one PathElm element for each hierarchy level, ordered from top level to bottom level, e.g. "Dummies", "H3", "50%" -->
     <xs:complexType name="EqxPath">
         <xs:sequence>
             <xs:element name="PathElm" type="xs:string"  minOccurs="0" maxOccurs="unbounded"/>
@@ -465,7 +472,7 @@
                     <xs:element name="CalPeriod" type="xs:int" minOccurs="0"/>
                     <xs:element name="CalInfo" type="xs:string" minOccurs="0"/>
                     <xs:element name="UseCount" type="xs:int" minOccurs="0"/>
-                    <!-- since 1.5: An optional folder structure -->
+                    <!-- since V1.5: An optional folder structure to specify the target folder for new elements if not specified otherwise. -->
                     <xs:element name="Path" type="EqxPath" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
