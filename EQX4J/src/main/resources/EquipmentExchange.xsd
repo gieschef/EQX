@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : EquipmentExchange.xsd
+    Author     : Oliver Schnaus
+    Version    : 1.5
+    Date       : 23.05.2016
+    Description: Exchange of sensor, dummy and test data between crash test preparation software systems like CrashDesigner.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:kta="http://www.minidau.com/EquipmentExchange"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xs:complexType name="EqxAddress">
+        <xs:sequence>
+            <xs:element name="Company" type="xs:string"/>
+            <xs:element name="ContactName" type="xs:string" minOccurs="0"/>
+            <xs:element name="EMail" type="xs:string" minOccurs="0"/>
+            <xs:element name="Phone" type="xs:string" minOccurs="0"/>
+            <xs:element name="Fax" type="xs:string" minOccurs="0"/>
+            <xs:element name="Street" type="xs:string" minOccurs="0"/>
+            <xs:element name="PostCode" type="xs:string" minOccurs="0"/>
+            <xs:element name="City" type="xs:string" minOccurs="0"/>
+            <xs:element name="Country" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="EqxPolarity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Positive"/>
+            <xs:enumeration value="Negative"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EqxScalingMethod">
+        <xs:restriction base="xs:string">
+            <!-- Normal, linear scaling -->
+            <xs:enumeration value="Linear"/>
+            
+            <!--  -->
+            <xs:enumeration value="Linear with Offset"/>
+            
+            <!-- Special optical displacement sensors, e.g. mounted to a WorldSID or H3-10YO dummy.
+            The calibration is done in a nonlinear way by an exponential function:
+            Sensitivity2 := Exponent (exp) with default value -0.42857
+            Sensitivity3 := Zero-Intercept (int) in (linearized) engineering units (mV or LSB), default is 3333.9mV~
+            The linearized output U~ is calculated dependent on the engineering unit mV or LSB as follows:
+            EqxEngineeringUnit "mV":
+                                U~ = int - 1000mV~*(U[mV]/1000mV)^exp 
+                                with U := sensor output in mV
+            EqxEngineeringUnit "LSB":
+                                U~ = int - U[LSB]^exp
+                                with U := sensor output in LSB
+            Physical units are scaled similar to active sensors based on the linearized output values above: 
+                                D = U~/Sensitivity. -->
+            <xs:enumeration value="IRTRACC"/>
+            
+            <!-- Full bridge sensors additionally calibrated with a cubic polynomial
+            according to SAE J2517 Rev. September 2006. Usually displacement.
+            Sensitivity := The regular linear calibration factor
+            Sensitivity2-5 := The parameters A, B, C, M of the formula following the SAE-J2517 Rev. September 2006:
+                                D = A*S3 + B*S2 +C*S + M;
+                                with S := sensor output per excitation voltage in mV/V or LSB. -->
+            <xs:enumeration value="Cubic Polynomial"/>
+            
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Pin functions -->
+    <xs:simpleType name="EqxPinFunction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Positive Excitation Voltage"/>
+            <xs:enumeration value="Negative Excitation Voltage"/>
+            <xs:enumeration value="Positive Signal"/>
+            <xs:enumeration value="Negative Signal"/>
+            <xs:enumeration value="Positive Excitation Sense"/>
+            <xs:enumeration value="Negative Excitation Sense"/>
+            <xs:enumeration value="Shielding"/>
+            <xs:enumeration value="Ground"/>
+            <xs:enumeration value="Shunt Resistor"/>
+            <xs:enumeration value="Identification Module"/>
+            <xs:enumeration value="Combined Shunt and Identification"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="EqxPin">
+        <xs:sequence>
+            <xs:element name="Function" type="EqxPinFunction"/>
+        </xs:sequence>
+        <xs:attribute name="Id" type="xs:string"/> <!-- Use numbers "1" to "7" for standard lemosa plugs, use "SH" for shield identification -->
+    </xs:complexType>
+
+    <xs:simpleType name="EqxConnectorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Lemosa 1B"/> <!-- 7pol -->
+            <xs:enumeration value="Lemosa 2B"/>
+            <xs:enumeration value="Lemosa 4pol"/>
+            <xs:enumeration value="Lemosa 8pol"/>
+            <xs:enumeration value="Amphenol 9pol"/>
+            <xs:enumeration value="Amphenol 79pol"/>
+            <xs:enumeration value="Amphenol 128pol"/>
+            <xs:enumeration value="Tajimi 5pol"/>
+            <xs:enumeration value="Tajimi 7pol flat"/> <!-- V1.5 -->
+            <xs:enumeration value="Bendix 26pol"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EqxIdModuleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Endevco"/>
+            <xs:enumeration value="Dallas"/>
+            <xs:enumeration value="KT"/>
+            <xs:enumeration value="DiMod"/> <!-- since V1.4: DTI DiMod 307 -->
+            <xs:enumeration value="Microdau"/> <!-- since V1.4: K3800 Microdau -->
+            <xs:enumeration value="none"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EqxFiringMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AC"/>
+            <xs:enumeration value="DC"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EqxElectricalMethod">
+        <xs:restriction base="xs:string">
+            <!-- Constant current excitation sensors like ICP sensors.
+            Excitation values are provided in mA instead of V -->
+            <xs:enumeration value="Constant Current"/>
+            <!-- Regular Wheatstone bridge sensor -->
+            <xs:enumeration value="Full Bridge"/>
+            <!-- Devices will add internally one branch of the Wheatstone bridge -->
+            <xs:enumeration value="Half Bridge"/>
+            <!-- V1.5: Devices will add internally one branch of the Wheatstone bridge, scaling is not depending on the excitation voltage -->
+            <xs:enumeration value="Half Bridge Active"/>
+            <!-- V1.5: Just a quarter bridge  -->
+            <xs:enumeration value="Quarter Bridge"/>
+            <!-- V1.5: Sensor consists of one resistor only, scaling is not depending on the excitation voltage -->
+            <xs:enumeration value="Quarter Bridge Active"/>
+            <!-- Piezo sensors without internal charge amplifier -->
+            <xs:enumeration value="Piezo Input"/>
+            <!-- Active sensors without need of excitation -->
+            <xs:enumeration value="Voltage Input"/>
+            <!-- Sensor whose output scaling is not depending on the excitation voltage -->
+            <xs:enumeration value="Active Sensor"/>
+            <!-- Special temperature logger sensors, e.g. type 451C/T-LOG of MSC -->
+            <xs:enumeration value="UPS Data Logger"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- since V1.4 -->
+    <xs:simpleType name="EqxEngineeringUnit">
+        <xs:restriction base="xs:string">
+            <!-- Analog sensors calibrated in mV -->
+            <xs:enumeration value="mV"/>
+            <!-- Digital sensors calibrated in digits (LSB) -->
+            <xs:enumeration value="LSB"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EqxTedsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="IEEE1451.4"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- since 1.5 -->
+    <xs:simpleType name="EqxSWOffsetCompensationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Pre test measurement"/>
+            <xs:enumeration value="Average calculation"/>
+            <xs:enumeration value="Fix value"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- since 1.5 -->
+    <xs:simpleType name="EqxFilterClassType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="AdHoc"/>
+            <xs:enumeration value="CFC10"/>
+            <xs:enumeration value="CFC60"/>
+            <xs:enumeration value="CFC180"/>
+            <xs:enumeration value="CFC600"/>
+            <xs:enumeration value="CFC1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="EqxCalHistoryEntry">
+        <xs:sequence>
+            <!-- The calibration number. the latest calibration has the highest number -->
+            <xs:element name="CalVersion" type="xs:long" minOccurs="0"/>
+            <!-- The scaling method for parameter interpretation -->
+            <xs:element name="ScalingMethod" type="EqxScalingMethod" minOccurs="0"/>
+            <!-- The sensitivity, the unit depends on the EngineeringUnit and the ElectricalMethod:
+               mV/V/Unit (analog bridge sensors) 
+               mV/Unit   (analog active sensors) 
+               LSB/Unit  (digital sensors) -->
+            <xs:element name="Sensitivity" type="xs:float" minOccurs="0"/>
+            <!-- V1.4: The unit for the sensitivity and offset values. 
+               If skipped and for older file versions, the default is mV -->
+            <xs:element name="EngineeringUnit" type="EqxEngineeringUnit" minOccurs="0"/>
+            <!-- An additional calibration factor, dependent on the scaling method -->
+            <xs:element name="Sensitivity2" type="xs:double" minOccurs="0"/>
+            <!-- An additional calibration factor, dependent on the scaling method -->
+            <xs:element name="Sensitivity3" type="xs:double" minOccurs="0"/>
+            <!-- An additional calibration factor, dependent on the scaling method -->
+            <xs:element name="Sensitivity4" type="xs:double" minOccurs="0"/>
+            <!-- An additional calibration factor, dependent on the scaling method -->
+            <xs:element name="Sensitivity5" type="xs:double" minOccurs="0"/>
+            <!-- The excitation used within calibration -->
+            <xs:element name="SensitivityVoltage" type="xs:float" minOccurs="0"/>
+            <!-- V1.3: The linearity deviation relative to the measured values, e.g. 0.01 for 1%. The method for calculation is to be agreed within the exchange partners -->
+            <xs:element name="LinearityDeviation" type="xs:float" minOccurs="0"/>
+            <!-- V1.3: The standard deviation in physical units -->
+            <xs:element name="StandardDeviation" type="xs:float" minOccurs="0"/>
+            <!--  -->
+            <xs:element name="HysteresisDeviation" type="xs:float" minOccurs="0"/>
+            <!-- The date of calibration -->
+            <xs:element name="CalDate" type="xs:date" minOccurs="0"/>
+            <!-- The operator doing the calibration -->
+            <xs:element name="CalPerson" type="xs:string" minOccurs="0"/>
+            <!-- V1.3: The laboratory responsible for the calibration -->
+            <xs:element name="CalLaboratory" type="xs:string" minOccurs="0"/>
+            <!-- V1.3: Applied calibration instruction -->
+            <xs:element name="CalInstruction" type="xs:string" minOccurs="0"/>
+            <!-- Any remarks from the operator related to the calibration -->
+            <xs:element name="CalRemark" type="xs:string" minOccurs="0"/>
+            <!-- V1.5: true if this calibration is a reference calibration for deviation verifications. -->
+            <xs:element name="ReferenceCalibration" type="xs:boolean" minOccurs="0"/>
+            <!-- Vendor specific enhancements -->
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Attribute" type="EqxAttribute" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EqxSensorAxis">
+        <xs:complexContent>
+            <!-- The latest calibration is embedded directly in the sensor axis element -->
+            <xs:extension base="EqxCalHistoryEntry">
+                <xs:sequence>
+                    <!-- Sensor axis identification -->
+                    <xs:element name="Name" type="xs:string"/>
+                    <xs:element name="UUID" type="xs:string"/>
+                    <!-- false if the channel should not be used by default, neither programmed nor read out or converted. Defaults to true if skipped. -->
+                    <xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
+                    <!-- false if the channel should be programmed and measured, but not read out by default, e.g. spare channels if special circumstances during the test are observed. Defaults to true if skipped. -->
+                    <xs:element name="ReadoutEnabled" type="xs:boolean" minOccurs="0"/>
+                    <!-- false if the channel should be programmed, measured and read out, but should not be contained in any output files by default, e.g. equipment verification channels. Defaults to true if skipped. -->
+                    <xs:element name="ConversionEnabled" type="xs:boolean" minOccurs="0"/>
+                    <!-- Defined if any Transducer Electronic Data Sheet can be read from the sensor hardware -->
+                    <xs:element name="TedsType" type="EqxTedsType" minOccurs="0"/>
+
+                    <!-- Location data -->
+                    <!-- The 15 character ISO code of the location -->
+                    <xs:element name="LocationCode" type="xs:string" minOccurs="0"/>
+                    <!-- The description for the ISO code, e.g. the ISO text L1 or L2 -->
+                    <xs:element name="LocationLongname" type="xs:string" minOccurs="0"/>
+                    <!-- Any company specific code for the location -->
+                    <xs:element name="CompanyCode" type="xs:string" minOccurs="0"/>
+                    <!-- Any company specific description for the location -->
+                    <xs:element name="CompanyLongname" type="xs:string" minOccurs="0"/>
+
+                    <!-- Sensor model data -->
+                    <xs:element name="Supplier" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Model" type="xs:string" minOccurs="0"/>
+                    <!-- The technology used for this sensor, e.g. abbreviations for piezo electric or resistive -->
+                    <xs:element name="Technology" type="xs:string" minOccurs="0"/>
+                    <!-- Minimum and maximum supported excitation of this sensor model -->
+                    <xs:element name="ExcitationVoltageMin" type="xs:float" minOccurs="0"/>
+                    <xs:element name="ExcitationVoltageMax" type="xs:float" minOccurs="0"/>
+                    
+                    <!-- Sensor model axis data -->
+                    <xs:element name="ElectricalMethod" type="EqxElectricalMethod" minOccurs="0"/>
+                    <xs:element name="PhysicalDimension" type="xs:string" minOccurs="0"/>
+                    <xs:element name="PhysicalUnit" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AxisDirection" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MinRange" type="xs:float" minOccurs="0"/>
+                    <xs:element name="MaxRange" type="xs:float" minOccurs="0"/>
+
+                    <!-- Maximum allowed relative deviation of new sensitivity to previous sensitivity or reference sensitivity -->
+                    <!-- Recommended strategy: Use the latest calibration history entry with "ReferenceCalibration" flag set to "true" as reference. -->
+                    <!-- Calculate |newSens - refSens|/|refSens| as deviation and check against this value. -->
+                    <xs:element name="MaxSensitivityDeviation" type="xs:float" minOccurs="0"/>
+                    <!-- The maximum allowed linearity deviation relative to the measured values, e.g. 0.01 for 1% -->
+                    <xs:element name="MaxLinearityDeviation" type="xs:float" minOccurs="0"/>
+                    <!-- The maximum allowed standard deviation in physical units -->
+                    <xs:element name="MaxStandardDeviation" type="xs:float" minOccurs="0"/>
+                    <!-- The maximum allowed hysteresis deviation relative to the measured values, e.g. 0.01 for 1%  -->
+                    <xs:element name="MaxHysteresisDeviation" type="xs:float" minOccurs="0"/>
+
+                    <!-- Sensor data -->
+                    <xs:element name="SerialNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Usable" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="Status" type="xs:string" minOccurs="0"/>
+
+                    <!-- Sensor axis data - ID module -->
+                    <xs:element name="IDModuleType" type="EqxIdModuleType" minOccurs="0"/>
+                    <xs:element name="IDModuleString" type="xs:string" minOccurs="0"/>
+
+                    <!-- Sensor axis data - calibration policies -->
+                    <!-- The max number of days between two calibrations -->
+                    <xs:element name="CalPeriod" type="xs:int" minOccurs="0"/>
+                    
+                    <!-- Sensor axis data - Shunt and resistors -->
+                    <!-- true if a shunt check is requested -->
+                    <xs:element name="ShuntCheckPos" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="ShuntGainPos" type="xs:float" minOccurs="0"/>
+                    <!-- the shunt reference value in engineering units (mV or LSB) for the shunt step with applied gain or 1 if missing -->
+                    <xs:element name="ShuntValuePos" type="xs:float" minOccurs="0"/>
+                    <!-- the tolerance in percent of the reference value in [0.0; 1.0] -->
+                    <xs:element name="ShuntTolRelativePos" type="xs:float" minOccurs="0"/>
+                    <!-- true if a shunt check is requested -->
+                    <xs:element name="ShuntCheckNeg" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="ShuntGainNeg" type="xs:float" minOccurs="0"/>
+                    <!-- the shunt reference value in engineering units (mV or LSB) for the shunt step with applied gain or 1 if missing -->
+                    <xs:element name="ShuntValueNeg" type="xs:float" minOccurs="0"/>
+                    <!-- the tolerance in percent of the reference value in [0.0; 1.0] -->
+                    <xs:element name="ShuntTolRelativeNeg" type="xs:float" minOccurs="0"/>
+                    <!-- the shunt resistor in Ohm -->
+                    <xs:element name="ShuntResistance" type="xs:float" minOccurs="0"/>
+                    <!-- V1.4: The bridge resistor between "Positive Signal" and "Positive Excitation Voltage" in Ohm -->
+                    <xs:element name="BridgeResistorPinpPexc" type="xs:float" minOccurs="0"/>
+                    <!-- V1.4: The bridge resistor between "Positive Signal" and "Negative Excitation Voltage" in Ohm -->
+                    <xs:element name="BridgeResistorPinpNexc" type="xs:float" minOccurs="0"/>
+                    <!-- V1.4: The bridge resistor between "Negative Signal" and "Positive Excitation Voltage" in Ohm -->
+                    <xs:element name="BridgeResistorNinpPexc" type="xs:float" minOccurs="0"/>
+                    <!-- V1.4: The bridge resistor between "Negative Signal" and "Negative Excitation Voltage" in Ohm -->
+                    <xs:element name="BridgeResistorNinpNexc" type="xs:float" minOccurs="0"/>
+                    
+                    <!-- Sensor axis data - Offset -->
+                    <!-- The reference value in engineering units (mV or LSB) for the natural offset (without gain) -->
+                    <xs:element name="Offset" type="xs:float" minOccurs="0"/>
+                    <!-- The tolerance in engineering units (mV or LSB) for the natural offset (without gain) -->
+                    <xs:element name="OffsetTol" type="xs:float" minOccurs="0"/>
+                    <xs:element name="OffsetCheck" type="xs:boolean" minOccurs="0"/>
+                    
+                    <!-- Sensor axis data - Wiring -->
+                    <xs:element name="ElectricalPolarity" type="EqxPolarity" minOccurs="0"/>
+                    <xs:element name="ConnectorPin" type="EqxPin" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="ConnectorType" type="EqxConnectorType" minOccurs="0"/>
+                    <xs:element name="ConnectorId" type="xs:string" minOccurs="0"/> <!-- only if connected to a multi channel plug -->
+                    
+                    <!-- The optional history of calibration data. The latest calibration is embedded directly -->
+                    <xs:element name="CalHistory" type="EqxCalHistoryEntry" minOccurs="0" maxOccurs="unbounded"/>
+                    
+                    <!-- Device channel data -->
+                    <xs:element name="DeviceChannelName" type="xs:string" minOccurs="0"/>
+                    
+                    <!-- Channel data -->
+                    <xs:element name="MountingPolarity" type="EqxPolarity" minOccurs="0"/>
+                    <xs:element name="Remark" type="xs:string" minOccurs="0"/>
+                    
+                    <!-- Channel data - Program -->
+                    <!-- The preferred measurement range (CAC) -->
+                    <xs:element name="PreferredRange" type="xs:float" minOccurs="0"/>
+                    <!-- In samples per second -->
+                    <xs:element name="SampleFrequency" type="xs:float" minOccurs="0"/>
+                    <!-- The used excitation in V (or mA for constant current / Current Input sensors) -->
+                    <xs:element name="ExcitationVoltage" type="xs:float" minOccurs="0"/>
+
+                    <!-- Channel data - Requested offset handling -->
+                    <xs:element name="OffsetCompensation" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="SWOffsetCompensation" type="xs:boolean" minOccurs="0"/>
+                    <!-- V1.5: The type of offset compensation by software -->
+                    <xs:element name="SWOffsetCompensationType" type="EqxSWOffsetCompensationType" minOccurs="0"/>
+                    <!-- V1.5: The start time in seconds for the calculation of a sensor offset, relative to T0 -->
+                    <xs:element name="SWOffsetCalculationStartSec" type="xs:float" minOccurs="0"/>
+                    <!-- V1.5: The end time in seconds for the calculation of a sensor offset, relative to T0 -->
+                    <xs:element name="SWOffsetCalculationEndSec" type="xs:float" minOccurs="0"/>
+                    <!-- V1.5: Any offset due to the mounting of a sensor in physical units, e.g. +/- 90 deg for absolute angular sensors -->
+                    <xs:element name="SWOffsetFixValue" type="xs:float" minOccurs="0"/>
+                    
+                    <!-- Channel data - Filtering -->
+                    <!-- V1.5: The filter class type requested to be applied by software -->
+                    <xs:element name="SWFilterClassType" type="EqxFilterClassType" minOccurs="0"/>
+                    <!-- V1.5: The filter frequency to be applied for SWFilterClassType 'AdHoc' -->
+                    <xs:element name="SWFilterAdHocFrequency" type="xs:float" minOccurs="0"/>
+                    
+                    <!-- Channel data - Constant channels -->
+                    <!-- true if a const channel must be read only within test execution -->
+                    <xs:element name="ConstInReadOnly" type="xs:boolean" minOccurs="0"/>
+                    <!-- A default value for a const channel -->
+                    <xs:element name="ConstInValue" type="xs:float" minOccurs="0"/>
+
+                    <!-- Channel data - Timer channels -->
+                    <!-- The firing mode for timer channels -->
+                    <xs:element name="FiringMode" type="EqxFiringMode" minOccurs="0"/>
+                    <!-- The firing delay in ms for timer channels -->
+                    <xs:element name="FiringDelay" type="xs:float" minOccurs="0"/>
+                    <!-- V1.5: The firing pulse duration in microseconds -->
+                    <xs:element name="FiringDuration" type="xs:int" minOccurs="0"/>
+                    <!-- V1.5: The firing voltage limit in mV -->
+                    <xs:element name="FiringVoltageLimit" type="xs:int" minOccurs="0"/>
+                    <!-- V1.5: The firing current limit in mA -->
+                    <xs:element name="FiringCurrentLimit" type="xs:int" minOccurs="0"/>
+                    
+                    <!-- Attachments to the sensor like related data sheets or calibration sheets -->
+                    <xs:element name="Attachment" type="EqxAttachment" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:anyAttribute/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="EqxAttribute">
+        <!-- The keys for ISOMME data should follow the convention of ISOMME, e.g. "Customer test ref. number" -->
+        <!-- The keys for numerated ISOMME data should follow the convention of ISOMME without number, e.g. "Velocity test object", "Name of test object" -->
+        <xs:attribute name="Key" type="xs:string"/>
+        <xs:attribute name="Value" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:simpleType name="EqxSensorGroupCategory">
+        <xs:restriction base="xs:string">
+            <!-- Complete test setups -->
+            <xs:enumeration value="TestSetup"/>
+            <!-- Channel Groups like Dummies -->
+            <xs:enumeration value="Dummy"/>
+            <!-- Sensors with one or more axes -->
+            <xs:enumeration value="Multi-Axis Sensor"/>
+            <!-- V1.3: Sensors related to a specific test bench -->
+            <xs:enumeration value="TestBench"/>
+            <!-- V1.3: Sensors related to a specific measurement device -->
+            <xs:enumeration value="MeasurementDevice"/>
+            <!-- V1.5: Peripheral equipment as balances, tilt sensors, ambient data loggers -->
+            <xs:enumeration value="Equipment"/>
+            <!-- Unspecified. Should not be used for one of the categories above -->
+            <xs:enumeration value="None"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- since 1.5 -->
+    <xs:complexType name="EqxPath">
+        <xs:sequence>
+            <xs:element name="PathElm" type="xs:string"  minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- The base class for the sensors root and the groups -->
+    <xs:complexType name="EqxBaseSensorGroup">
+        <xs:sequence>
+            <xs:element name="SensorGroup" type="EqxSensorGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Sensor" type="EqxSensorAxis" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Attachment" type="EqxAttachment" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Remark" type="xs:string" minOccurs="0"/>
+            <xs:element name="Attribute" type="EqxAttribute" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:anyAttribute/>
+    </xs:complexType>
+
+    <xs:complexType name="EqxSensorGroup">
+        <xs:complexContent>
+            <xs:extension base="EqxBaseSensorGroup">
+                <xs:sequence>
+                    <xs:element name="Category" type="EqxSensorGroupCategory" minOccurs="0"/>
+                    <xs:element name="Name" type="xs:string"/>
+                    <xs:element name="UUID" type="xs:string"/>
+                    <xs:element name="SerialNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Supplier" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Model" type="xs:string" minOccurs="0"/>
+                    <xs:element name="CalDate" type="xs:date" minOccurs="0"/>
+                    <!-- The max number of days between two calibrations -->
+                    <xs:element name="CalPeriod" type="xs:int" minOccurs="0"/>
+                    <xs:element name="CalInfo" type="xs:string" minOccurs="0"/>
+                    <xs:element name="UseCount" type="xs:int" minOccurs="0"/>
+                    <!-- since 1.5: An optional folder structure -->
+                    <xs:element name="Path" type="EqxPath" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="EqxAttachment">
+        <!-- The path relative to the parent directory of the referring e2x file -->
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="Description" type="xs:string" use="optional"/>
+                <!-- since 1.5: The type of attachment -->
+                <xs:attribute name="Type" type="EqxAttachmentType" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- V1.5 -->
+    <xs:simpleType name="EqxAttachmentType">
+        <xs:restriction base="xs:string">
+            <!-- Calibration or certification sheets -->
+            <xs:enumeration value="CalibrationSheet"/>
+            <!-- Data sheet of a sensor model or equipment model -->
+            <xs:enumeration value="DataSheet"/>
+            <!-- Product image -->
+            <xs:enumeration value="Image"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="EqxFileInfo">
+        <xs:attribute name="DataFormatEdition" type="xs:string" use="optional"/>
+        <xs:attribute name="CreationTime" type="xs:dateTime" use="optional"/>
+        <xs:attribute name="Software" type="xs:string" use="optional"/>
+        <xs:attribute name="SoftwareVersion" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="EqxSensors">
+        <xs:complexContent>
+            <xs:extension base="EqxBaseSensorGroup">
+                <xs:sequence>
+                    <xs:element name="FileInfo" type="EqxFileInfo"/>
+                    <xs:element name="Owner" type="EqxAddress" minOccurs="0"/>
+                    <xs:element name="Sender" type="EqxAddress" minOccurs="0"/>
+                    <xs:element name="Recipient" type="EqxAddress" minOccurs="0"/>
+                    <xs:element name="OrderNumber" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Sensors" type="EqxSensors">
+    </xs:element>
+
+</xs:schema>
